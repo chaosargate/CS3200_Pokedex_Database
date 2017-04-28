@@ -1,0 +1,192 @@
+id,identifier,description
+1,stench,Has a 10% chance of making target Pokemon flinch with each hit.
+2,drizzle,Summons rain that lasts indefinitely upon entering battle.
+3,speed-boost,Raises Speed one stage after each turn.
+4,battle-armor,Protects against critical hits.
+5,sturdy,"Prevents being KOed from full HP, leaving 1 HP instead.  Protects against the one-hit KO moves regardless of HP."
+6,damp,"Prevents Self-Destruct, Explosion, and Aftermath from working while the Pokemon is in battle."
+7,limber,Prevents Paralysis.
+8,sand-veil,Increases Evasion to 1.25 during a sandstorm. Protects against sandstorm damage.
+9,static,Has a 30% chance of paralyzing attacking Pokemon on contact.
+10,volt-absorb,"Absorbs Electric moves, healing for 1/4 max HP."
+11,water-absorb,"AbsorbsWater moves, healing for 1/4 max HP."
+12,oblivious,Prevents infatuationand protects against Captivate.
+13,cloud-nine,"Negates all effects of weather, but does not prevent the weather itself."
+14,compound-eyes,Increases moves' accuracy to 1.3.
+15,insomnia,Prevents sleep.
+16,color-change,Changes type to match when hit by a damaging move.
+17,immunity,Prevents poison.
+18,flash-fire,"Protects against Fire moves.  Once one has been blocked, the Pokemon's own Fire moves inflict 1.5 damage until it leaves battle."
+19,shield-dust,Protects against incoming moves' extra effects.
+20,own-tempo,Prevents confusion
+21,suction-cups,Prevents being forced out of battle by other Pokemon's moves.
+22,intimidate,Lowers opponents' Attack one stage upon entering battle.
+23,shadow-tag,Prevents opponents from fleeing or switching out.
+24,rough-skin,Damages attacking Pokemon for 1/8 their max HP on contact.
+25,wonder-guard,Protects against damaging moves that are not super effective.
+26,levitate,Evades ground moves.
+27,effect-spore,"Has a 30% chance of inflcting either paralysis, poison, or sleep on attacking Pokemon on contact."
+28,synchronize,"Copies burns, paralysis, and poison received onto the Pokemon that inflicted them."
+29,clear-body,Prevents stats from being lowered by other Pokemon.
+30,natural-cure,Cures any major status ailment upon switching out.
+31,lightning-rod,"Redirects single-target Electric moves to this Pokemon where possible.  Absorbs Electric moves, raising Special Attack one stage."
+32,serene-grace,Doubles the chance of moves' extra effects occurring.
+33,swift-swim,Doubles Speed during rain.
+34,chlorophyll,Doubles Speed during strong sunlight.
+35,illuminate,Doubles the wild encounter rate.
+36,trace,Copies an opponent's ability upon entering battle.
+37,huge-power,Doubles Attack in battle.
+38,poison-point,Has a 30% chance of poisoning attacking Pokemon on contact.
+39,inner-focus,Prevents flinching.
+40,magma-armor,Prevents freezing.
+41,water-veil,Prevents burns.
+42,magnet-pull,Prevents Steel opponents from fleeing or switching out.
+43,soundproof,Protects against sound-based moves.
+44,rain-dish,Heals for 1/16 max HP after each turn during rain.
+45,sand-stream,Summons a sandstorm that lasts indefinitely upon entering battle.
+46,pressure,Increases the PP cost of moves targetting the Pokemon by one.
+47,thick-fat,Halves damage from fire and ice moves.
+48,early-bird,Makes sleep pass twice as quickly.
+49,flame-body,Has a 30% chance of burning attacking Pokemon on contact.
+50,run-away,Ensures success fleeing from wild battles.
+51,keen-eye,Prevents accuracy from being lowered.
+52,hyper-cutter,Prevents Attack from being lowered by other Pokemon.
+53,pickup,Picks up other Pokemon's used and Flung held items.  May also pick up an item after battle.
+54,truant,Skips every second turn.
+55,hustle,"Strengthens physical moves to inflict 1.5 damage, but decreases their accuracy to 0.8."
+56,cute-charm,Has a 30% chance of infatuating attacking Pokemon on contact.
+57,plus,Increases Special Attack to 1.5 when a friendly Pokemon has Plus or Minus.
+58,minus,Increases Special Attack to 1.5 when a friendly Pokemon has Plus or Minus.
+59,forecast,Changes Castform's type and form to match the weather.
+60,sticky-hold,Prevents a held item from being removed by other Pokemon.
+61,shed-skin,Has a 33% chance of curing any major status ailment after each turn.
+62,guts,Increases Attack to 1.5 with a major status ailment.
+63,marvel-scale,Increases Defense to 1.5 with a major status ailment.
+64,liquid-ooze,Damages opponents using leeching moves for as much as they would heal.
+65,overgrow,Strengthens Grass moves to inflict 1.5 damage at 1/3 max HP or less.
+66,blaze,Strengthens Fire moves to inflict 1.5 damage at 1/3 max HP or less.
+67,torrent,Strengthens Water moves to inflict 1.5 damage at 1/3 max HP or less.
+68,swarm,Strengthens Bug moves to inflict 1.5 damage at 1/3 max HP or less.
+69,rock-head,Protects against recoil damage.
+70,drought,Summons strong sunlight that lasts indefinitely upon entering battle.
+71,arena-trap,Prevents opponents from fleeing or switching out.  Eluded by Flying-types and Pokemon in the air.
+72,vital-spirit,Prevents sleep.
+73,white-smoke,Prevents stats from being lowered by other Pokemon.
+74,pure-power,Doubles Attack in battle.
+75,shell-armor,Protects againstcritical hits.
+76,air-lock,"Negates all effects of weather, but does not prevent the weather itself."
+77,tangled-feet,Doubles evasion when confused.
+78,motor-drive,"Absorbs Electric moves, raising Speed one stage."
+79,rivalry,"Increases damage inflicted to 1.25 against Pokemon of the same gender, but decreases damage to 0.75 against the opposite gender."
+80,steadfast,Raises Speed one stage upon flinching.
+81,snow-cloak,Increases evasion to 1.25 during hail.  Protects against hail damage.
+82,gluttony,Makes the Pokemon eat any held Berry triggered by low HP below 1/2 its max HP.
+83,anger-point,Raises Attack to the maximum of six stages upon receiving a critical hit.
+84,unburden,Doubles Speed upon using or losing a held item.
+85,heatproof,Halves damage from fire moves and burns.
+86,simple,Doubles the Pokemon's stat modifiers.  These doubled modifiers are still capped at -6 or 6 stages.
+87,dry-skin,"Causes 1/8 max HP in damage each turn during strong sunlight, but heals for 1/8 max HP during rain.  Increases damage from fire moves to 1.25, but absorbs Water moves, healing for 1/4 max HP."
+88,download,Raises the attack stat corresponding to the opponents' weaker defense one stage upon entering battle.
+89,iron-fist,Strengthens punch-based moves to 1.2 their power.
+90,poison-heal,Heals for 1/8 max HP after each turn when poisoned in place of damage.
+91,adaptability,Increases the same-type attack bonus from 1.5 to 2.
+92,skill-link,Extends two-to-five-hit moves and Triple-Kick to their full length every time.
+93,hydration,Cures any major status ailment after each turn during rain.
+94,solar-power,Increases Special Attack to 1.5 but costs 1/8 max HP after each turn during strong sunlight.
+95,quick-feet,Increases Speed to 1.5 with a major status ailment.
+96,normalize,Makes the Pokemon's moves all act Normal-type.
+97,sniper,Strengthenscritical hits to inflict 3 damage rather than 2.
+98,magic-guard,Protects against damage not directly caused by a move.
+99,no-guard,Ensures all moves used by and against the Pokemon hit.
+100,stall,Makes the Pokemon move last within its move's priority bracket.
+101,technician,Strengthens moves of 60 base power or less to 1.5 their power.
+102,leaf-guard,Protects against major status ailments during strong sunlight.
+103,klutz,Prevents the Pokemon from using its held item in battle.
+104,mold-breaker,Bypasses targets' abilities if they could hinder or prevent a move.
+105,super-luck,Raises moves' critical hit rates one stage.
+106,aftermath,Damages the attacker for 1/4 its max HP when knocked out by a contact move.
+107,anticipation,"Notifies all trainers upon entering battle if an opponent has a super-effective move, Self-Destruct, Explosion, or a one-hit KO move."
+108,forewarn,Reveals the opponents' strongest move upon entering battle.
+109,unaware,Ignores other Pokemon's stat modifiers for damage and accuracy calculation.
+110,tinted-lens,Doubles damage inflicted with not-very-effective moves.
+111,filter,Decreases damage taken from super-effective moves by 1/4.
+112,slow-start,Halves Attack and Speed for five turns upon entering battle.
+113,scrappy,Lets the Pokemon's Normal and Fighting moves hit Ghost Pokemon.
+114,storm-drain,"Redirects single-target Water moves to this Pokemon where possible.  Absorbs Water moves, raising Special Attack one stage."
+115,ice-body,Heals for 1/16 max HP after each turn during hail.  Protects against hail damage.
+116,solid-rock,Decreases damage taken from super-effective moves by 1/4.
+117,snow-warning,Summons hail that lasts indefinitely upon entering battle.
+118,honey-gather,The Pokemon may pick up Honey after battle.
+119,frisk,Reveals an opponent's held item upon entering battle.
+120,reckless,Strengthens recoil moves to 1.2 their power.
+121,multitype,Changes Arceus's type and form to match its held Plate.
+122,flower-gift,Increases friendly Pokemon's Attack and Special Defense to 1.5 during strong sunlight.
+123,bad-dreams,Damages sleeping opponents for 1/8 their max HP after each turn.
+124,pickpocket,Steals attacking Pokemon's held items on contact.
+125,sheer-force,"Strengthens moves with extra effects to 1.3 their power, but prevents their extra effects."
+126,contrary,Inverts stat changes.
+127,unnerve,Prevents opposing Pokemon from eating held Berries.
+128,defiant,Raises Attack two stages upon having any stat lowered.
+129,defeatist,Halves Attack and Special Attack at 50% max HP or less.
+130,cursed-body,Has a 30% chance of Disabling any move that hits the Pokemon.
+131,healer,Has a 30% chance of curing each adjacent ally of any major status ailment after each turn.
+132,friend-guard,Decreases all direct damage taken by friendly Pokemon to 0.75.
+133,weak-armor,Raises Speed and lowers Defense by one stage each upon being hit by a physical move.
+134,heavy-metal,Doubles the Pokemon's weight.
+135,light-metal,Halves the Pokemon's weight.
+136,multiscale,Halves damage taken from full HP.
+137,toxic-boost,Increases Attack to 1.5 when poisoned.
+138,flare-boost,Increases Special Attack to 1.5 when burned.
+139,harvest,Has a 50% chance of restoring a used Berry after each turn if the Pokemon has held no items in the meantime.
+140,telepathy,Protects against friendly Pokemon's damaging moves.
+141,moody,Raises a random stat two stages and lowers another one stage after each turn.
+142,overcoat,Protects against damage from weather.
+143,poison-touch,Has a 30% chance of poisoning target Pokemon upon contact.
+144,regenerator,Heals for 1/3 max HP upon switching out.
+145,big-pecks,Protects against Defense drops.
+146,sand-rush,Doubles Speed during a sandstorm.  Protects against sandstorm damage.
+147,wonder-skin,Lowers incoming non-damaging moves' base accuracy to exactly 50%.
+148,analytic,Strengthens moves to 1.3 their power when moving last.
+149,illusion,Takes the appearance of the last conscious party Pokemon upon being sent out until hit by a damaging move.
+150,imposter,[Transforms]{move:transform} upon entering battle.
+151,infiltrator,"Bypasses Light-Screen, Reflect, and Safeguard."
+152,mummy,Changes attacking Pokemon's abilities to Mummy on contact.
+153,moxie,Raises Attack one stage upon KOing a Pokemon.
+154,justified,Raises Attack one stage upon taking damage from a Dark move.
+155,rattled,"Raises Speed one stage upon being hit by a Dark, Ghost, or Bug move."
+156,magic-bounce,Reflects most non-damaging moves back at their user.
+157,sap-sipper,"Absorbs Grass moves, raising Attack one stage."
+158,prankster,Raises non-damaging moves' priority by one stage.
+159,sand-force,"Strengthens Rock, Ground, and Steel moves to 1.3 their power during a sandstorm.  Protects against sandstorm damage."
+160,iron-barbs,Damages attacking Pokemon for 1/8 their max HP on contact.
+161,zen-mode,"Changes Darmanitan's form after each turn depending on its HP: Zen Mode below 50% max HP, and Standard Mode otherwise."
+162,victory-star,Increases moves' accuracy to 1.1 for friendly Pokemon.
+163,turboblaze,Bypasses targets' abilities if they could hinder or prevent moves.
+164,teravolt,Bypasses targets' abilities if they could hinder or prevent moves.
+165,aroma-veil,Protects allies against moves that affect their mental state.
+166,flower-veil,Protects friendly Grass Pokemon from having their stats lowered by other Pokemon.
+167,cheek-pouch,"Restores HP upon eating a Berry, in addition to the Berry's effect."
+168,protean,Changes the bearer's type to match each move it uses.
+169,fur-coat,Halves damage from physical attacks.
+170,magician,Steals the target's held item when the bearer uses a damaging move.
+171,bulletproof,"Protects against bullet, ball, and bomb-based moves."
+172,competitive,Raises Special Attack by two stages upon having any stat lowered.
+173,strong-jaw,Strengthens biting moves to 1.5 their power.
+174,refrigerate,Turns the bearer's Normal moves into ice moves and strengthens them to 1.3 their power.
+175,sweet-veil,Prevents friendly Pokemon from sleeping.
+176,stance-change,"Changes Aegislash to Blade Forme before using a damaging move, or Shield Forme before using King's-Shield."
+177,gale-wings,Raises Flying moves' priority by one stage.
+178,mega-launcher,Strengthens aura and pulse moves to 1.5 their power.
+179,grass-pelt,Boosts Defense while Grassy-Terrain is in effect.
+180,symbiosis,Passes the bearer's held item to an ally when the ally uses up its item.
+181,tough-claws,Strengthens moves that make contact to 1.33 their power.
+182,pixilate,Turns the bearer's Normal moves into Fairy moves and strengthens them to 1.3 their power.
+183,gooey,Lowers attacking Pokemon's Speed by one stage on contact.
+184,aerilate,Turns the bearer's Normal moves into Flying moves and strengthens them to 1.3 their power.
+185,parental-bond,Lets the bearer hit twice with damaging moves.  The second hit has half power.
+186,dark-aura,Strengthens Dark moves to 1.33 their power for all friendly and opposing Pokemon.
+187,fairy-aura,Strengthens Fairy moves to 1.33 their power for all friendly and opposing Pokemon.
+188,aura-break,Makes Dark-Aura and Fairy-Aura weaken moves of their respective types.
+189,primordial-sea,
+190,desolate-land,
+191,delta-stream,

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+<html>
+<body>
+
+<script>
+//////////////////////////////////////////////////////////////////////////////
+// Variables & Constants
+//////////////////////////////////////////////////////////////////////////////
+var xmlhttp = new XMLHttpRequest();
+var url = 'http://127.0.0.1:8000/';
+var PokemonNames;
+
+//////////////////////////////////////////////////////////////////////////////
+// Network Methods
+//////////////////////////////////////////////////////////////////////////////
+function makeConn(params) {
+    xmlhttp.onreadystatechange = function() {
+        if (isOnReadyStateChangeGood()) {
+            var responseArray = xmlhttp.response;
+            var startIndex = responseArray.indexOf("<table");
+            var endIndex = responseArray.indexOf("[END]");
+            responseArray = responseArray.substring(startIndex, endIndex);
+            document.getElementById("SearchTable").innerHTML = responseArray;
+        }
+    }
+    executeXmlGetWithParamString(params);
+}
+
+function getResponseArray() {
+    var responseArray = xmlhttp.response;
+    var startIndex = responseArray.indexOf("[[");
+    var endIndex = responseArray.indexOf("]]") + 2;
+    responseArray = JSON.parse(responseArray.substring(startIndex, endIndex));
+
+    return responseArray;
+}
+
+function executeXmlGetWithParamString(params) {
+    xmlhttp.open("GET", url + params, true);
+    xmlhttp.send();
+}
+
+function isOnReadyStateChangeGood() {
+    return xmlhttp.readyState == 4 && xmlhttp.status == 200;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// GET Methods
+//////////////////////////////////////////////////////////////////////////////
+function getPokemonNames() {
+    xmlhttp.onreadystatechange = function() {
+        if (isOnReadyStateChangeGood()) {
+            var responseArray = getResponseArray();
+
+            var arrayOfDivsToPopulate = ["pokemonSearchDiv", 
+                                         "pokemonEvolvesIntoDiv", 
+                                         "pokemonEvolvesFromDiv",
+                                         "deletePokemonDiv",
+                                         "createEvolutionStartDiv",
+                                         "createEvolutionEndDiv",
+                                         "deleteEvolutionStartDiv",
+                                         "deleteEvolutionEndDiv",
+                                         "updateEvolutionStartDiv",
+                                         "updateEvolutionEndDiv",
+                                         "createMoveAcquisitionPokemonDiv",
+                                         "deleteMoveAcquisitionPokemonDiv",
+                                         "updateMoveAcquisitionPokemonDiv"]
+            arrayOfDivsToPopulate.forEach(function(element) {
+                document.getElementById(element).appendChild(pokemonNamesHelper(responseArray, element.concat("Selector")));
+            })
+
+            getMoveNames();
+        }
+    }
+    executeXmlGetWithParamString("getAllPokemon?=");
+}
+
+function getMoveNames() {
+    xmlhttp.onreadystatechange = function() {
+        if (isOnReadyStateChangeGood()) {
+            var responseArray = getResponseArray();
+
+            var arrayOfDivsToPopulate = ["movesSearchDiv",
+                                         "deleteMoveDiv",
+                                         "createMoveAcquisitionMoveDiv",
+                                         "deleteMoveAcquisitionMoveDiv",
+                                         "updateMoveAcquisitionMoveDiv"]
+            arrayOfDivsToPopulate.forEach(function(element) {
+                document.getElementById(element).appendChild(moveNamesHelper(responseArray, element.concat("Selector")));
+            })
+
+            getTypeNames();
+        }
+    }
+    executeXmlGetWithParamString("getAllMoves?=");
+}
+
+function getTypeNames() {
+    xmlhttp.onreadystatechange = function() {
+        if (isOnReadyStateChangeGood()) {
+            var responseArray = getResponseArray();
+
+            var arrayOfDivsToPopulate = ["createPokemonType1", 
+                                         "createPokemonType2",
+                                         "updatePokemonType1", 
+                                         "updatePokemonType2",
+                                         "createMoveTypeDiv",
+                                         "updateMoveTypeDiv"]
+            arrayOfDivsToPopulate.forEach(function(element) {
+                document.getElementById(element).appendChild(typeNamesHelper(responseArray, element.concat("Selector")));
+            })
+
+            getAbilityNames();
+        }
+    }
+    executeXmlGetWithParamString("getAllTypes?=");
+}
+
+function getAbilityNames() {
+    xmlhttp.onreadystatechange = function() {
+        if (isOnReadyStateChangeGood()) {
+            var responseArray = getResponseArray();
+
+            var arrayOfDivsToPopulate = ["createPokemonAbility1", 
+                                         "createPokemonAbility2", 
+                                         "createPokemonAbility3",
+                                         "updatePokemonAbility1", 
+                                         "updatePokemonAbility2", 
+                                         "updatePokemonAbility3"]
+            arrayOfDivsToPopulate.forEach(function(element) {
+                document.getElementById(element).appendChild(abilityNamesHelper(responseArray, element.concat("Selector")));
+            })
+
+            getClassNames();
+        }
+    }
+    executeXmlGetWithParamString("getAllAbilities?=");
+}
+
+function getClassNames() {
+    xmlhttp.onreadystatechange = function() {
+        if (isOnReadyStateChangeGood()) {
+            var responseArray = getResponseArray();
+
+            var arrayOfDivsToPopulate = ["createMoveClassDiv",
+                                         "updateMoveClassDiv"]
+            arrayOfDivsToPopulate.forEach(function(element) {
+                document.getElementById(element).appendChild(classNamesHelper(responseArray, element.concat("Selector")));
+            })
+            getMethodNames();
+        }
+    }
+    executeXmlGetWithParamString("getAllClasses?=");
+}
+
+function getMethodNames() {
+        xmlhttp.onreadystatechange = function() {
+        if (isOnReadyStateChangeGood()) {
+            var responseArray = getResponseArray();
+
+            var arrayOfDivsToPopulate = ["createEvolutionMethodDiv",
+                                         "updateEvolutionMethodDiv",
+                                         "createMoveAcquisitionMethodDiv",
+                                         "updateMoveAcquisitionMethodDiv"]
+            arrayOfDivsToPopulate.forEach(function(element) {
+                document.getElementById(element).appendChild(methodNamesHelper(responseArray, element.concat("Selector")));
+            })
+        }
+    }
+    executeXmlGetWithParamString("getAllMethods?=");
+}
+
+function pokemonNamesHelper(givenArray, selectElementId) {
+    return createSelectElementForIdNamePair(givenArray, selectElementId, "Pokemon");
+}
+
+function typeNamesHelper(givenArray, selectElementId) {
+    return createSelectElementForIdNamePair(givenArray, selectElementId, "Types");
+}
+
+function abilityNamesHelper(givenArray, selectElementId) {
+    return createSelectElementForIdNamePair(givenArray, selectElementId, "Abilities");
+}
+
+function moveNamesHelper(givenArray, selectElementId) {
+    return createSelectElementForIdNamePair(givenArray, selectElementId, "Moves");
+}
+
+function classNamesHelper(givenArray, selectElementId) {
+    return createSelectElementForIdNamePair(givenArray, selectElementId, "Classes");
+}
+
+function methodNamesHelper(givenArray, selectElementId) {
+    return createSelectElementForIdNamePair(givenArray, selectElementId, "Methods");
+}
+
+function createSelectElementForIdNamePair(givenArray, selectElementId, textContentOfFirstElement) {
+    var selectElement = document.createElement("select");
+    selectElement.id = selectElementId;
+
+    var optionElement;
+    givenArray.forEach(function(item) {
+        optionElement = document.createElement("option");
+        optionElement.value = item[0];
+        optionElement.textContent = item[1];
+        if (item[1] == "Name") {
+            optionElement.textContent = textContentOfFirstElement;
+            optionElement.value = "all";
+        }
+        selectElement.appendChild(optionElement);
+    })
+
+    return selectElement;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Search
+//////////////////////////////////////////////////////////////////////////////
+function pokemonSearch() {
+    makeConn("searchPokemon?=" + document.getElementById("pokemonSearchDivSelector").value);
+}
+
+function moveSearch() {
+    makeConn("searchMove?=" + document.getElementById("movesSearchDivSelector").value);
+}
+
+function pokemonEvolvesFrom() {
+    makeConn("pokemonEvolvesFrom?=" + document.getElementById("pokemonEvolvesFromDivSelector").value);
+}
+
+function pokemonEvolvesInto() {
+    makeConn("pokemonEvolvesInto?=" + document.getElementById("pokemonEvolvesIntoDivSelector").value);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Add
+//////////////////////////////////////////////////////////////////////////////
+function pokemonAdd() {
+    var pokedexId = document.getElementById("createPokemonIdInput").value;
+    var name = document.getElementById("createPokemonNameInput").value;
+    var hp  = statErrorChecker(document.getElementById("createHpInput").value);
+    var attack = statErrorChecker(document.getElementById("createAttackInput").value);
+    var defense = statErrorChecker(document.getElementById("createDefenseInput").value);
+    var specialAttack = statErrorChecker(document.getElementById("createSpecialAttackInput").value);
+    var specialDefense = statErrorChecker(document.getElementById("createSpecialDefenseInput").value);
+    var speed = statErrorChecker(document.getElementById("createSpeedInput").value);
+    var type1 = document.getElementById("createPokemonType1Selector").value;
+    if (type1 == "all") {
+        type1 = 1;
+    }
+    var type2 = document.getElementById("createPokemonType2Selector").value;
+    if (type2 == "all") {
+        type2 = type1;
+    }
+    var ability1 = document.getElementById("createPokemonAbility1Selector").value;
+    if (ability1 == "all") {
+        ability1 = 1;
+    }
+    var ability2 = document.getElementById("createPokemonAbility2Selector").value;
+    if (ability2 == "all") {
+        ability2 = null;
+    }
+    var ability3 = document.getElementById("createPokemonAbility3Selector").value;
+    if (ability3 == "all") {
+        ability3 = null;
+    }
+
+    var paramString = "pokemonAdd?=" +
+                      "pokedexId=" + pokedexId +
+                      "&name="     + name +
+                      "&hp="       + hp +
+                      "&att="      + attack +
+                      "&def="      + defense +
+                      "&spa="      + specialAttack +
+                      "&spd="      + specialDefense +
+                      "&spe="      + speed +
+                      "&type1="    + type1 +
+                      "&type2="    + type2 +
+                      "&ability1=" + ability1 +
+                      "&ability2=" + ability2 +
+                      "&ability3=" + ability3;
+
+    makeConn(paramString);
+}
+
+function moveAdd() {
+    var moveName = document.getElementById("createMoveNameInput").value;
+    var power = document.getElementById("createMovePowerInput").value;
+    var pp = statErrorChecker(document.getElementById("createMovePPInput").value);
+    var accuracy = statErrorChecker(document.getElementById("createMoveAccuracyInput").value);
+    var moveClass = selectValueErrorChecker(document.getElementById("createMoveClassDivSelector").value);
+    var moveType = selectValueErrorChecker(document.getElementById("createMoveTypeDivSelector").value);
+
+    var paramString = "moveAdd?=" +
+                      "moveName="   + moveName +
+                      "&power="     + power +
+                      "&pp="        + pp +
+                      "&accuracy="  + accuracy +
+                      "&moveClass=" + moveClass +
+                      "&moveType="  + moveType;
+
+    makeConn(paramString);
+}
+
+function evolutionAdd() {
+    var startPokemonId = selectValueErrorChecker(document.getElementById("createEvolutionStartDivSelector").value);
+    var endPokemonId = selectValueErrorChecker(document.getElementById("createEvolutionEndDivSelector").value);
+    var methodId = selectValueErrorChecker(document.getElementById("createEvolutionMethodDivSelector").value);
+    var level = statErrorChecker(document.getElementById("createEvolutionLevelInput").value);
+
+
+    var paramString = "evolutionAdd?=" +
+                      "startPokemonId=" + startPokemonId +
+                      "&endPokemonId="  + endPokemonId +
+                      "&methodId="      + methodId +
+                      "&level="         + level;
+
+    makeConn(paramString);
+}
+
+function moveAcquisitionAdd() {
+    var pokedexNumber = selectValueErrorChecker(document.getElementById("createMoveAcquisitionPokemonDivSelector").value);
+    var moveId = selectValueErrorChecker(document.getElementById("createMoveAcquisitionMoveDivSelector").value);
+    var methodId = selectValueErrorChecker(document.getElementById("createMoveAcquisitionMethodDivSelector").value);
+    var level = statErrorChecker(document.getElementById("createMoveAcquisitionLevelInput").value);
+
+
+    var paramString = "moveAcquisitionAdd?=" +
+                      "pokedexNumber=" + pokedexNumber +
+                      "&moveId="   + moveId +
+                      "&methodId=" + methodId +
+                      "&level="    + level;
+
+    makeConn(paramString);
+}
+
+
+function statErrorChecker(stat) {
+    if (stat == "") {
+        stat = 0;
+    }
+    return stat;
+}
+
+function selectValueErrorChecker(selectValue) {
+    if (selectValue == "all") {
+        selectValue = 1;
+    }
+
+    return selectValue;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Delete
+//////////////////////////////////////////////////////////////////////////////
+function pokemonDelete() {
+    makeConn("pokemonDelete?=" + document.getElementById("deletePokemonDivSelector").value);
+}
+
+function moveDelete() {
+    makeConn("moveDelete?=" + document.getElementById("deleteMoveDivSelector").value);
+}
+
+function evolutionDelete() {
+    makeConn("evolutionDelete?=" + 
+             "startPokemonId=" + document.getElementById("deleteEvolutionStartDivSelector").value +
+             "&endPokemonId=" + document.getElementById("deleteEvolutionEndDivSelector").value);
+}
+
+function moveAcquisitionDelete() {
+    makeConn("moveAcquisitionDelete?=" + 
+             "pokemonId=" + document.getElementById("deleteMoveAcquisitionPokemonDivSelector").value +
+             "&moveId=" + document.getElementById("deleteMoveAcquisitionMoveDivSelector").value);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// Update
+//////////////////////////////////////////////////////////////////////////////
+function pokemonUpdate() {
+    var pokedexId = getValidValue("", document.getElementById("updatePokemonIdInput").value);
+    var name = getValidValue("", document.getElementById("updatePokemonNameInput").value);
+    var hp  = getValidValue("", document.getElementById("updateHpInput").value);
+    var attack = getValidValue("", document.getElementById("updateAttackInput").value);
+    var defense = getValidValue("", document.getElementById("updateDefenseInput").value);
+    var specialAttack = getValidValue("", document.getElementById("updateSpecialAttackInput").value);
+    var specialDefense = getValidValue("", document.getElementById("updateSpecialDefenseInput").value);
+    var speed = getValidValue("", document.getElementById("updateSpeedInput").value);
+    var type1 = getValidValue("all", document.getElementById("updatePokemonType1Selector").value);
+    var type2 = getValidValue("all", document.getElementById("updatePokemonType2Selector").value);
+    var ability1 = getValidValue("all", document.getElementById("updatePokemonAbility1Selector").value);
+    var ability2 = getValidValue("all", document.getElementById("updatePokemonAbility2Selector").value);
+    var ability3 = getValidValue("all", document.getElementById("updatePokemonAbility3Selector").value);
+
+    var paramString = "pokemonUpdate?=" +
+                      "pokedexId=" + pokedexId +
+                      "&name="     + name +
+                      "&hp="       + hp +
+                      "&att="      + attack +
+                      "&def="      + defense +
+                      "&spa="      + specialAttack +
+                      "&spd="      + specialDefense +
+                      "&spe="      + speed +
+                      "&type1="    + type1 +
+                      "&type2="    + type2 +
+                      "&ability1=" + ability1 +
+                      "&ability2=" + ability2 +
+                      "&ability3=" + ability3;
+
+    makeConn(paramString);
+}
+
+function moveUpdate() {
+    var moveName = getValidValue("", document.getElementById("updateMoveNameInput").value);
+    var power = getValidValue("", document.getElementById("updateMovePowerInput").value);
+    var pp = getValidValue("", document.getElementById("updateMovePPInput").value);
+    var accuracy = getValidValue("", document.getElementById("updateMoveAccuracyInput").value);
+    var moveClass = getValidValue("all", document.getElementById("updateMoveClassDivSelector").value);
+    var moveType = getValidValue("all", document.getElementById("updateMoveTypeDivSelector").value);
+
+    var paramString = "moveUpdate?=" +
+                      "moveName="   + moveName +
+                      "&power="     + power +
+                      "&pp="        + pp +
+                      "&accuracy="  + accuracy +
+                      "&moveClass=" + moveClass +
+                      "&moveType="  + moveType;
+
+    makeConn(paramString);
+}
+
+function evolutionUpdate() {
+    var startPokemonId = getValidValue("all", document.getElementById("updateEvolutionStartDivSelector").value);
+    var endPokemonId = getValidValue("all", document.getElementById("updateEvolutionEndDivSelector").value);
+    var methodId = getValidValue("all", document.getElementById("updateEvolutionMethodDivSelector").value);
+    var levelRequirement = getValidValue("", document.getElementById("updateEvolutionLevelInput").value);
+
+    var paramString = "evolutionUpdate?=" +
+                      "startPokemonId="    + startPokemonId +
+                      "&endPokemonId="     + endPokemonId +
+                      "&methodId="         + methodId +
+                      "&levelRequirement=" + levelRequirement;
+
+    makeConn(paramString);
+}
+
+function moveAcquisitionUpdate() {
+    var pokemonId = getValidValue("all", document.getElementById("updateMoveAcquisitionPokemonDivSelector").value);
+    var moveId = getValidValue("all", document.getElementById("updateMoveAcquisitionMoveDivSelector").value);
+    var methodId = getValidValue("all", document.getElementById("updateMoveAcquisitionMethodDivSelector").value);
+    var levelRequirement = getValidValue("", document.getElementById("updateMoveAcquisitionLevelInput").value);
+
+    var paramString = "moveAcquisitionUpdate?=" +
+                      "startPokemonId="    + pokemonId +
+                      "&endPokemonId="     + moveId +
+                      "&methodId="         + methodId +
+                      "&levelRequirement=" + levelRequirement;
+
+    makeConn(paramString);
+}
+
+function getValidValue(equalTo, suffix) {
+    if (suffix == equalTo) {
+        return "_NA_";
+    } else {
+        return suffix;
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+// UI Show/Hide Methods
+//////////////////////////////////////////////////////////////////////////////
+function showElement(id) {
+    document.getElementById(id).style.display = "block";
+}
+
+function hideElement(id) {
+    document.getElementById(id).style.display = "none";
+}
+
+//////////////////////////////////////////////////////////////////////////////
+function init() {
+    getPokemonNames();
+}
+
+init();
+
+//////////////////////////////////////////////////////////////////////////////
+</script>
+
+<div id=search>
+    <div id=pokemonSearchDiv>
+        <b>Pokemon</b>
+        <br>
+        <button id="PokemonSearchButton" onclick="pokemonSearch()">
+            Search
+        </button>
+    </div>
+    <br>
+    <div id=movesSearchDiv>
+        <b>Move</b>
+        <br>
+        <button id="MoveSearchButton" onclick="moveSearch()">
+            Search
+        </button>
+    </div>
+    <br>
+    <div id=pokemonEvolvesFromDiv>
+        <b>Selection evolved from</b>
+        <br>
+        <button id="PokemonEvolvesFromButton" onclick="pokemonEvolvesFrom()">
+            Search
+        </button>
+    </div>
+    <br>
+    <div id=pokemonEvolvesIntoDiv>
+        <b>Selection evolves into</b>
+        <br>
+        <button id="PokemonEvolvesIntoButton" onclick="pokemonEvolvesInto()">
+            Search
+        </button>
+    </div>
+    <br>
+</div>
+
+<br>
+
+<div id=addHeader>
+    <b>Add</b> 
+    <button id="showAddCells" onclick="showElement('addCells')">
+        Show
+    </button>
+    <button id="hideAddCells" onclick="hideElement('addCells')">
+        Hide
+    </button>
+
+    <div id = "addCells" style="display:none">
+        <b>Add pokemon</b> 
+        <button id="ShowAddPokemon" onclick="showElement('PokemonAddInputDiv')">
+            Show
+        </button>
+        <button id="HideAddPokemon" onclick="hideElement('PokemonAddInputDiv')">
+            Hide
+        </button>
+
+        <div id=PokemonAddInputDiv style="border:1px solid; display:none">
+            Pokedex Number:<br>
+            <input type="text" id="createPokemonIdInput">
+            <br>
+            Pokemon name:<br>
+            <input type="text" id="createPokemonNameInput">
+            <br>
+            HP:<br>
+            <input type="text" id="createHpInput">
+            <br>
+            Attack:<br>
+            <input type="text" id="createAttackInput">
+            <br>
+            Defense:<br>
+            <input type="text" id="createDefenseInput">
+            <br>
+            Special Attack:<br>
+            <input type="text" id="createSpecialAttackInput">
+            <br>
+            Special Defense:<br>
+            <input type="text" id="createSpecialDefenseInput">
+            <br>
+            Speed:<br>
+            <input type="text" id="createSpeedInput">
+            <br>
+            Type 1:
+            <div id="createPokemonType1"></div>
+            Type 2:
+            <div id="createPokemonType2"></div>
+            Ability 1:
+            <div id="createPokemonAbility1"></div>
+            Ability 2:
+            <div id="createPokemonAbility2"></div>
+            Ability 3:
+            <div id="createPokemonAbility3"></div>
+            <br>
+            <button id="addPokemonButton" onclick="pokemonAdd()">
+                Add
+            </button>
+        </div>
+        <br>
+
+        <b>Add move</b> 
+        <button id="ShowAddMove" onclick="showElement('MoveAddInputDiv')">
+            Show
+        </button>
+        <button id="HideAddMove" onclick="hideElement('MoveAddInputDiv')">
+            Hide
+        </button>
+
+        <div id=MoveAddInputDiv style="border:1px solid; display:none">
+            Move name:<br>
+            <input type="text" id="createMoveNameInput">
+            <br>
+            Power:<br>
+            <input type="text" id="createMovePowerInput">
+            <br>
+            pp:<br>
+            <input type="text" id="createMovePPInput">
+            <br>
+            Accuracy:<br>
+            <input type="text" id="createMoveAccuracyInput">
+            <br>
+            Class:
+            <div id="createMoveClassDiv"></div>
+            Type:
+            <div id="createMoveTypeDiv"></div>
+            <br>
+            <button id="addMoveButton" onclick="moveAdd()">
+                Add
+            </button>
+        </div>
+        <br>
+
+        <b>Add evolution</b> 
+        <button id="ShowAddEvolution" onclick="showElement('EvolutionAddInputDiv')">
+            Show
+        </button>
+        <button id="HideAddEvolution" onclick="hideElement('EvolutionAddInputDiv')">
+            Hide
+        </button>
+
+        <div id=EvolutionAddInputDiv style="border:1px solid; display:none">
+            Start pokemon:<br>
+            <div id="createEvolutionStartDiv"></div>
+            <br>
+            End Pokemon:<br>
+            <div id="createEvolutionEndDiv"></div>
+            <br>
+            Method:<br>
+            <div id="createEvolutionMethodDiv"></div>
+            <br>
+            Level:<br>
+            <input type="text" id="createEvolutionLevelInput">
+            <br>
+            <button id="addEvolutionButton" onclick="evolutionAdd()">
+                Add
+            </button>
+        </div>
+        <br>
+
+        <b>Add move acquisition</b>
+        <button id="ShowAddMoveAcquisition" onclick="showElement('MoveAcquisitionAddInputDiv')">
+            Show
+        </button>
+        <button id="HideAddMoveAcquisition" onclick="hideElement('MoveAcquisitionAddInputDiv')">
+            Hide
+        </button>
+
+        <div id=MoveAcquisitionAddInputDiv style="border:1px solid; display:none">
+            Pokemon:<br>
+            <div id="createMoveAcquisitionPokemonDiv"></div>
+            <br>
+            Move:<br>
+            <div id="createMoveAcquisitionMoveDiv"></div>
+            <br>
+            Method:<br>
+            <div id="createMoveAcquisitionMethodDiv"></div>
+            <br>
+            Level:<br>
+            <input type="text" id="createMoveAcquisitionLevelInput">
+            <br>
+            <button id="addMoveAcquisitionButton" onclick="moveAcquisitionAdd()">
+                Add
+            </button>
+        </div>
+    </div>
+</div>
+<br>
+
+<div id=deleteHeader>
+    <b>Delete</b> 
+    <button id="showDeleteCells" onclick="showElement('deleteCells')">
+        Show
+    </button>
+    <button id="hideDeleteCells" onclick="hideElement('deleteCells')">
+        Hide
+    </button>
+
+    <div id = "deleteCells" style="display:none">
+        <div id = "deletePokemonDiv">
+            <b>Delete pokemon</b>
+            <br>
+            <button id="PokemonDeleteButton" onclick="pokemonDelete()">
+                Delete
+            </button>
+        </div>
+        <div id = "deleteMoveDiv">
+            <b>Delete move</b>
+            <br>
+            <button id="MoveDeleteButton" onclick="moveDelete()">
+                Delete
+            </button>
+        </div>
+
+        <b>Delete evolution</b> 
+        <button id="ShowDeleteEvolution" onclick="showElement('EvolutionDeleteInputDiv')">
+            Show
+        </button>
+        <button id="HideDeleteEvolution" onclick="hideElement('EvolutionDeleteInputDiv')">
+            Hide
+        </button>
+        <div id=EvolutionDeleteInputDiv style="border:1px solid; display:none">
+            Start pokemon:<br>
+            <div id="deleteEvolutionStartDiv"></div>
+            <br>
+            End Pokemon:<br>
+            <div id="deleteEvolutionEndDiv"></div>
+            <br>
+            <button id="deleteEvolutionButton" onclick="evolutionDelete()">
+                Delete
+            </button>
+        </div>
+        <br>
+
+        <b>Delete move acquisition</b>
+        <button id="ShowDeleteMoveAcquisition" onclick="showElement('MoveAcquisitionDeleteInputDiv')">
+            Show
+        </button>
+        <button id="HideDeleteMoveAcquisition" onclick="hideElement('MoveAcquisitionDeleteInputDiv')">
+            Hide
+        </button>
+        <div id=MoveAcquisitionDeleteInputDiv style="border:1px solid; display:none">
+            Pokemon:<br>
+            <div id="deleteMoveAcquisitionPokemonDiv"></div>
+            <br>
+            Move:<br>
+            <div id="deleteMoveAcquisitionMoveDiv"></div>
+            <br>
+            <button id="deleteMoveAcquisitionButton" onclick="moveAcquisitionDelete()">
+                Delete
+            </button>
+        </div>
+
+    </div>
+</div>
+<br>
+
+<div id=updateHeader>
+    <b>Update (Names are used as keys) </b> 
+    <button id="showUpdateCells" onclick="showElement('updateCells')">
+        Show
+    </button>
+    <button id="hideUpdateCells" onclick="hideElement('updateCells')">
+        Hide
+    </button>
+
+    <div id = "updateCells" style="display:none">
+        <div id = "updatePokemonDiv">
+            <b>Update pokemon</b> 
+            <button id="ShowUpdatePokemon" onclick="showElement('PokemonUpdateInputDiv')">
+                Show
+            </button>
+            <button id="HideUpdatePokemon" onclick="hideElement('PokemonUpdateInputDiv')">
+                Hide
+            </button>
+
+            <div id=PokemonUpdateInputDiv style="border:1px solid; display:none">
+                Pokedex Number:<br>
+                <input type="text" id="updatePokemonIdInput">
+                <br>
+                Pokemon name:<br>
+                <input type="text" id="updatePokemonNameInput">
+                <br>
+                HP:<br>
+                <input type="text" id="updateHpInput">
+                <br>
+                Attack:<br>
+                <input type="text" id="updateAttackInput">
+                <br>
+                Defense:<br>
+                <input type="text" id="updateDefenseInput">
+                <br>
+                Special Attack:<br>
+                <input type="text" id="updateSpecialAttackInput">
+                <br>
+                Special Defense:<br>
+                <input type="text" id="updateSpecialDefenseInput">
+                <br>
+                Speed:<br>
+                <input type="text" id="updateSpeedInput">
+                <br>
+                Type 1:
+                <div id="updatePokemonType1"></div>
+                Type 2:
+                <div id="updatePokemonType2"></div>
+                Ability 1:
+                <div id="updatePokemonAbility1"></div>
+                Ability 2:
+                <div id="updatePokemonAbility2"></div>
+                Ability 3:
+                <div id="updatePokemonAbility3"></div>
+                <br>
+                <button id="updatePokemonButton" onclick="pokemonUpdate()">
+                    Update
+                </button>
+            </div>
+        </div>
+
+        <b>Update move</b> 
+        <button id="ShowUpdateMove" onclick="showElement('MoveUpdateInputDiv')">
+            Show
+        </button>
+        <button id="HideUpdateMove" onclick="hideElement('MoveUpdateInputDiv')">
+            Hide
+        </button>
+
+        <div id=MoveUpdateInputDiv style="border:1px solid; display:none">
+            Move name:<br>
+            <input type="text" id="updateMoveNameInput">
+            <br>
+            Power:<br>
+            <input type="text" id="updateMovePowerInput">
+            <br>
+            pp:<br>
+            <input type="text" id="updateMovePPInput">
+            <br>
+            Accuracy:<br>
+            <input type="text" id="updateMoveAccuracyInput">
+            <br>
+            Class:
+            <div id="updateMoveClassDiv"></div>
+            Type:
+            <div id="updateMoveTypeDiv"></div>
+            <br>
+            <button id="updateMoveButton" onclick="moveUpdate()">
+                Update
+            </button>
+        </div>
+        <br>
+
+        <b>Update evolution</b> 
+        <button id="ShowUpdateEvolution" onclick="showElement('EvolutionUpdateInputDiv')">
+            Show
+        </button>
+        <button id="HideUpdateEvolution" onclick="hideElement('EvolutionUpdateInputDiv')">
+            Hide
+        </button>
+
+        <div id=EvolutionUpdateInputDiv style="border:1px solid; display:none">
+            Start pokemon:<br>
+            <div id="updateEvolutionStartDiv"></div>
+            <br>
+            End Pokemon:<br>
+            <div id="updateEvolutionEndDiv"></div>
+            <br>
+            Method:<br>
+            <div id="updateEvolutionMethodDiv"></div>
+            <br>
+            Level:<br>
+            <input type="text" id="updateEvolutionLevelInput">
+            <br>
+            <button id="updateEvolutionButton" onclick="evolutionUpdate()">
+                Update
+            </button>
+        </div>
+        <br>
+        
+        <b>Update move acquisition (Pokemon and move used as key)</b>
+        <button id="ShowUpdateMoveAcquisition" onclick="showElement('MoveAcquisitionUpdateInputDiv')">
+            Show
+        </button>
+        <button id="HideUpdateMoveAcquisition" onclick="hideElement('MoveAcquisitionUpdateInputDiv')">
+            Hide
+        </button>
+
+        <div id=MoveAcquisitionUpdateInputDiv style="border:1px solid; display:none">
+            Pokemon:<br>
+            <div id="updateMoveAcquisitionPokemonDiv"></div>
+            <br>
+            Move:<br>
+            <div id="updateMoveAcquisitionMoveDiv"></div>
+            <br>
+            Method:<br>
+            <div id="updateMoveAcquisitionMethodDiv"></div>
+            <br>
+            Level:<br>
+            <input type="text" id="updateMoveAcquisitionLevelInput">
+            <br>
+            <button id="updateMoveAcquisitionButton" onclick="moveAcquisitionUpdate()">
+                Update
+            </button>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<div id="SearchTable"></div>
+
+</body>
+</html>
+

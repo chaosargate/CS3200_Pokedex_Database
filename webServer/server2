@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+import sqlalchemy
+
+# Connection settings
+settings = {
+    'userName': "root",           # The name of the MySQL account to use (or empty for anonymous)
+    'password': "root",           # The password for the MySQL account (or empty for anonymous)
+    'serverName': "localhost",    # The name of the computer running MySQL
+    'portNumber': 3307,           # The port of the MySQL server (default is 3306)
+    'dbName': "pokemon",             # The name of the database we are testing with (this default is installed with MySQL)
+}
+tableName = "pokemon"           # The name of the table we are testing with
+
+# Connect to the database
+conn = create_engine('mysql://{0[userName]}:{0[password]}@{0[serverName]}:{0[portNumber]}/{0[dbName]}'.format(settings))
+print 'Connected to database'
+
+# Select data from the table
+select_string = "SELECT name, city, state, zip FROM {}".format(tableName)
+for (name, city, state, zipcode) in conn.execute(select_string):
+    print name, city, state, zipcode
